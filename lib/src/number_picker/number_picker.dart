@@ -175,7 +175,6 @@ class _UtilityNumberPickerState extends State<UtilityNumberPicker> {
 
   Widget _buildItem(BuildContext context, int index) {
     final itemValue = _indexToValue(index);
-    final isSelected = itemValue == widget.value;
 
     final defaultUnselectedStyle = const TextStyle(
       fontSize: 16.0,
@@ -187,39 +186,54 @@ class _UtilityNumberPickerState extends State<UtilityNumberPicker> {
       color: Color(0xFF000000),
     );
 
-    final style = isSelected
-        ? (widget.selectedTextStyle ?? defaultSelectedStyle)
-        : (widget.textStyle ?? defaultUnselectedStyle);
+    final unselected = widget.textStyle ?? defaultUnselectedStyle;
+    final selected = widget.selectedTextStyle ?? defaultSelectedStyle;
 
     String text = itemValue.toString();
     if (widget.textMapper != null) {
       text = widget.textMapper!(text);
     }
 
-    Widget content = Center(
-      child: Text(
-        text,
-        style: style,
-        maxLines: 1,
-        textAlign: TextAlign.center,
-      ),
-    );
+    return AnimatedBuilder(
+      animation: _scrollController,
+      builder: (context, _) {
+        double currentOffset = 0.0;
+        if (_scrollController.hasClients && _scrollController.position.hasContentDimensions) {
+          currentOffset = _scrollController.offset / widget.itemHeight;
+        } else {
+          currentOffset = _valueToIndex(widget.value).toDouble();
+        }
 
-    if (widget.axis == Axis.horizontal) {
-      content = RotatedBox(quarterTurns: 1, child: content);
-    }
+        final distance = (index - currentOffset).abs();
+        final factor = distance.clamp(0.0, 1.0);
+        final dynamicStyle = TextStyle.lerp(selected, unselected, factor) ?? selected;
 
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () => _animateToIndex(index),
-        child: SizedBox(
-          height: widget.itemHeight,
-          width: widget.itemWidth,
-          child: content,
-        ),
-      ),
+        Widget content = Center(
+          child: Text(
+            text,
+            style: dynamicStyle,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+          ),
+        );
+
+        if (widget.axis == Axis.horizontal) {
+          content = RotatedBox(quarterTurns: 1, child: content);
+        }
+
+        return MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => _animateToIndex(index),
+            child: SizedBox(
+              height: widget.itemHeight,
+              width: widget.itemWidth,
+              child: content,
+            ),
+          ),
+        );
+      },
     );
   }
 
