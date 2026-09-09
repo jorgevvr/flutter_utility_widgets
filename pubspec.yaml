@@ -1,6 +1,6 @@
 name: flutter_utility_widgets
 description: "Pacote Flutter independente com seletores e utilitários agnósticos: UtilityNumberPicker, UtilityMonthPicker e UtilityCalculator."
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/jorgevvr/flutter_utility_widgets
 
 environment:

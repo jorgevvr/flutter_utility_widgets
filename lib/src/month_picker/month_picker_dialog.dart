@@ -55,6 +55,9 @@ class UtilityMonthPickerDialog extends StatefulWidget {
   /// Largura máxima do card do diálogo. Padrão: 320.0.
   final double maxWidth;
 
+  /// Raio da borda dos botões Cancelar e Confirmar. Padrão: 12.0.
+  final BorderRadiusGeometry buttonsBorderRadius;
+
   const UtilityMonthPickerDialog({
     super.key,
     this.initialDate,
@@ -73,6 +76,7 @@ class UtilityMonthPickerDialog extends StatefulWidget {
     this.backgroundColor = const Color(0xFFFFFFFF),
     this.borderRadius = const BorderRadius.all(Radius.circular(24.0)),
     this.maxWidth = 320.0,
+    this.buttonsBorderRadius = const BorderRadius.all(Radius.circular(12.0)),
   });
 
   @override
@@ -155,6 +159,13 @@ class _UtilityMonthPickerDialogState extends State<UtilityMonthPickerDialog> {
                           onTap: widget.onCancel ?? () => Navigator.of(context).pop(),
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: style.arrowColor.withValues(alpha: 0.5),
+                                width: 1.0,
+                              ),
+                              borderRadius: widget.buttonsBorderRadius,
+                            ),
                             child: Text(
                               widget.cancelText,
                               style: TextStyle(
@@ -186,7 +197,7 @@ class _UtilityMonthPickerDialogState extends State<UtilityMonthPickerDialog> {
                             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                             decoration: BoxDecoration(
                               color: style.arrowColor,
-                              borderRadius: const BorderRadius.all(Radius.circular(100.0)),
+                              borderRadius: widget.buttonsBorderRadius,
                             ),
                             child: Text(
                               widget.confirmText,
@@ -225,6 +236,7 @@ Future<DateTime?> showUtilityMonthPickerDialog({
   String cancelText = 'Cancelar',
   Color backgroundColor = const Color(0xFFFFFFFF),
   BorderRadiusGeometry borderRadius = const BorderRadius.all(Radius.circular(24.0)),
+  BorderRadiusGeometry buttonsBorderRadius = const BorderRadius.all(Radius.circular(12.0)),
   bool barrierDismissible = true,
 }) {
   return showGeneralDialog<DateTime>(
@@ -245,6 +257,7 @@ Future<DateTime?> showUtilityMonthPickerDialog({
         cancelText: cancelText,
         backgroundColor: backgroundColor,
         borderRadius: borderRadius,
+        buttonsBorderRadius: buttonsBorderRadius,
         onConfirm: (date) => Navigator.of(ctx).pop(date),
         onCancel: () => Navigator.of(ctx).pop(),
       );
