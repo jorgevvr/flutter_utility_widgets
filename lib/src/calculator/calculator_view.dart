@@ -460,16 +460,21 @@ class _UtilityCalculatorState extends State<UtilityCalculator> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.width,
-      height: widget.height ?? 440.0,
-      child: Column(
-        children: [
-          _buildDisplay(),
-          const SizedBox(height: 8.0),
-          Expanded(child: _buildKeypad()),
-          if (widget.showConfirmationButton) _buildConfirmButton(),
-        ],
+    return DefaultTextStyle.merge(
+      style: const TextStyle(
+        decoration: TextDecoration.none,
+      ),
+      child: SizedBox(
+        width: widget.width,
+        height: widget.height ?? 440.0,
+        child: Column(
+          children: [
+            _buildDisplay(),
+            const SizedBox(height: 8.0),
+            Expanded(child: _buildKeypad()),
+            if (widget.showConfirmationButton) _buildConfirmButton(),
+          ],
+        ),
       ),
     );
   }

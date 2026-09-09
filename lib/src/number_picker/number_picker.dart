@@ -272,24 +272,29 @@ class _UtilityNumberPickerState extends State<UtilityNumberPicker> {
       );
     }
 
-    return Listener(
-      onPointerSignal: _handlePointerSignal,
-      child: SizedBox(
-        height: isHorizontal ? widget.itemHeight : viewHeight,
-        width: isHorizontal ? viewHeight : viewWidth,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            if (widget.decoration != null)
-              IgnorePointer(
-                child: Container(
-                  height: widget.itemHeight,
-                  width: widget.itemWidth,
-                  decoration: widget.decoration,
+    return DefaultTextStyle.merge(
+      style: const TextStyle(
+        decoration: TextDecoration.none,
+      ),
+      child: Listener(
+        onPointerSignal: _handlePointerSignal,
+        child: SizedBox(
+          height: isHorizontal ? widget.itemHeight : viewHeight,
+          width: isHorizontal ? viewHeight : viewWidth,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              if (widget.decoration != null)
+                IgnorePointer(
+                  child: Container(
+                    height: widget.itemHeight,
+                    width: widget.itemWidth,
+                    decoration: widget.decoration,
+                  ),
                 ),
-              ),
-            wheel,
-          ],
+              wheel,
+            ],
+          ),
         ),
       ),
     );

@@ -53,55 +53,60 @@ class UtilityCalculatorModalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        width: maxWidth,
-        margin: const EdgeInsets.all(24.0),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: borderRadius,
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x26000000),
-              offset: Offset(0, 10),
-              blurRadius: 24.0,
-            ),
-          ],
+      child: DefaultTextStyle.merge(
+        style: const TextStyle(
+          decoration: TextDecoration.none,
         ),
-        clipBehavior: Clip.antiAlias,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (title != null) ...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: title!),
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        key: const Key('calculator_modal_close'),
-                        behavior: HitTestBehavior.opaque,
-                        onTap: onCancel ?? () => Navigator.of(context).pop(),
-                        child: const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Text(
-                            '✕',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0x8A000000),
+        child: Container(
+          width: maxWidth,
+          margin: const EdgeInsets.all(24.0),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: borderRadius,
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x26000000),
+                offset: Offset(0, 10),
+                blurRadius: 24.0,
+              ),
+            ],
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (title != null) ...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child: title!),
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          key: const Key('calculator_modal_close'),
+                          behavior: HitTestBehavior.opaque,
+                          onTap: onCancel ?? () => Navigator.of(context).pop(),
+                          child: const Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: Text(
+                              '✕',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0x8A000000),
+                                decoration: TextDecoration.none,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12.0),
-              ],
+                    ],
+                  ),
+                  const SizedBox(height: 12.0),
+                ],
               UtilityCalculator(
                 initialValue: initialValue,
                 style: style,
@@ -119,8 +124,9 @@ class UtilityCalculatorModalCard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 /// Abre a calculadora de forma modal e agnóstica via [showGeneralDialog],

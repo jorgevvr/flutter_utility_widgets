@@ -470,17 +470,22 @@ class _UtilityMonthPickerState extends State<UtilityMonthPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widget.width,
-      height: widget.height ?? 280.0,
-      color: _style.backgroundColor,
-      child: Column(
-        children: [
-          _buildHeader(),
-          Expanded(
-            child: _isSelectingYear ? _buildYearGrid() : _buildMonthGrid(),
-          ),
-        ],
+    return DefaultTextStyle.merge(
+      style: const TextStyle(
+        decoration: TextDecoration.none,
+      ),
+      child: Container(
+        width: widget.width,
+        height: widget.height ?? 280.0,
+        color: _style.backgroundColor,
+        child: Column(
+          children: [
+            _buildHeader(),
+            Expanded(
+              child: _isSelectingYear ? _buildYearGrid() : _buildMonthGrid(),
+            ),
+          ],
+        ),
       ),
     );
   }

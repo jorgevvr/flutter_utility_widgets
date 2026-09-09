@@ -99,105 +99,112 @@ class _UtilityMonthPickerDialogState extends State<UtilityMonthPickerDialog> {
     final style = widget.style ?? const UtilityMonthPickerStyle();
 
     return Center(
-      child: Container(
-        width: widget.maxWidth,
-        margin: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
-        decoration: BoxDecoration(
-          color: widget.backgroundColor,
-          borderRadius: widget.borderRadius,
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x26000000),
-              offset: Offset(0, 10),
-              blurRadius: 24.0,
-            ),
-          ],
+      child: DefaultTextStyle.merge(
+        style: const TextStyle(
+          decoration: TextDecoration.none,
         ),
-        clipBehavior: Clip.antiAlias,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (widget.title != null)
+        child: Container(
+          width: widget.maxWidth,
+          margin: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+          decoration: BoxDecoration(
+            color: widget.backgroundColor,
+            borderRadius: widget.borderRadius,
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x26000000),
+                offset: Offset(0, 10),
+                blurRadius: 24.0,
+              ),
+            ],
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (widget.title != null)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 8.0),
+                  child: widget.title!,
+                ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 8.0),
-                child: widget.title!,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: UtilityMonthPicker(
+                  initialDate: widget.initialDate,
+                  selectedDate: _currentSelection,
+                  firstDate: widget.firstDate,
+                  lastDate: widget.lastDate,
+                  onMonthSelected: _onMonthSelected,
+                  monthNames: widget.monthNames,
+                  style: style,
+                  height: 270.0,
+                ),
               ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: UtilityMonthPicker(
-                initialDate: widget.initialDate,
-                selectedDate: _currentSelection,
-                firstDate: widget.firstDate,
-                lastDate: widget.lastDate,
-                onMonthSelected: _onMonthSelected,
-                monthNames: widget.monthNames,
-                style: style,
-                height: 270.0,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (widget.cancelWidget != null)
-                    widget.cancelWidget!
-                  else
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: widget.onCancel ?? () => Navigator.of(context).pop(),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-                          child: Text(
-                            widget.cancelText,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w600,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (widget.cancelWidget != null)
+                      widget.cancelWidget!
+                    else
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: widget.onCancel ?? () => Navigator.of(context).pop(),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                            child: Text(
+                              widget.cancelText,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w600,
+                                color: style.arrowColor,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    const SizedBox(width: 8.0),
+                    if (widget.confirmWidget != null)
+                      widget.confirmWidget!
+                    else
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () {
+                            if (widget.onConfirm != null) {
+                              widget.onConfirm!(_currentSelection);
+                            } else {
+                              Navigator.of(context).pop(_currentSelection);
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                            decoration: BoxDecoration(
                               color: style.arrowColor,
+                              borderRadius: const BorderRadius.all(Radius.circular(100.0)),
+                            ),
+                            child: Text(
+                              widget.confirmText,
+                              style: const TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFFFFFFF),
+                                decoration: TextDecoration.none,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  const SizedBox(width: 8.0),
-                  if (widget.confirmWidget != null)
-                    widget.confirmWidget!
-                  else
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          if (widget.onConfirm != null) {
-                            widget.onConfirm!(_currentSelection);
-                          } else {
-                            Navigator.of(context).pop(_currentSelection);
-                          }
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                          decoration: BoxDecoration(
-                            color: style.arrowColor,
-                            borderRadius: const BorderRadius.all(Radius.circular(100.0)),
-                          ),
-                          child: Text(
-                            widget.confirmText,
-                            style: const TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFFFFFFF),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
