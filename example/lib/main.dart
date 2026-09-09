@@ -28,7 +28,7 @@ class DemoTabsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Utility Widgets Showcase'),
@@ -37,6 +37,7 @@ class DemoTabsPage extends StatelessWidget {
             tabs: [
               Tab(icon: Icon(Icons.pin), text: 'Number Picker'),
               Tab(icon: Icon(Icons.calendar_month), text: 'Month Picker'),
+              Tab(icon: Icon(Icons.calculate), text: 'Calculator'),
             ],
           ),
         ),
@@ -44,6 +45,7 @@ class DemoTabsPage extends StatelessWidget {
           children: [
             NumberPickerDemoView(),
             MonthPickerDemoView(),
+            CalculatorDemoView(),
           ],
         ),
       ),
@@ -464,6 +466,143 @@ class _MonthPickerDemoViewState extends State<MonthPickerDemoView> {
                         ),
                         onMonthSelected: (date) {
                           setState(() => _restrictedMonth = date);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ==========================================
+// 3. DEMO DO CALCULATOR
+// ==========================================
+
+class CalculatorDemoView extends StatefulWidget {
+  const CalculatorDemoView({super.key});
+
+  @override
+  State<CalculatorDemoView> createState() => _CalculatorDemoViewState();
+}
+
+class _CalculatorDemoViewState extends State<CalculatorDemoView> {
+  double _accountBalance = 150.75;
+  double _inlineValue = 50.0;
+  double _submittedInlineValue = 50.0;
+
+  void _openCalculatorModal() async {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    final result = await showUtilityCalculatorModal(
+      context: context,
+      initialValue: _accountBalance,
+      title: Text(
+        'Editar Valor da Conta',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: colorScheme.onSurface,
+        ),
+      ),
+      style: UtilityCalculatorStyle(
+        operatorButtonColor: colorScheme.primary,
+        equalsButtonColor: colorScheme.tertiary,
+        confirmButtonColor: Colors.green.shade700,
+        borderRadius: BorderRadius.circular(16),
+      ),
+    );
+
+    if (result != null) {
+      setState(() {
+        _accountBalance = result;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(24.0),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Simulação de Retorno para a Tela Chamadora com initialValue
+              Card(
+                elevation: 0,
+                color: colorScheme.primaryContainer.withValues(alpha: 0.3),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Simulação: Valor Inicial & Retorno para a Tela',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Valor atual da conta: R\$ ${_accountBalance.toStringAsFixed(2).replaceAll('.', ',')}',
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 12),
+                      FilledButton.icon(
+                        icon: const Icon(Icons.calculate),
+                        label: const Text('Editar Valor na Calculadora (Modal)'),
+                        onPressed: _openCalculatorModal,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Calculadora Inline
+              Card(
+                elevation: 0,
+                color: colorScheme.surfaceContainerHighest,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        'UtilityCalculator (Inline com onChanged e onSubmitted)',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'Tempo real: R\$ ${_inlineValue.toStringAsFixed(2).replaceAll('.', ',')} | Confirmado: R\$ ${_submittedInlineValue.toStringAsFixed(2).replaceAll('.', ',')}',
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                      const SizedBox(height: 16),
+                      UtilityCalculator(
+                        initialValue: 50.0,
+                        style: UtilityCalculatorStyle(
+                          operatorButtonColor: colorScheme.primary,
+                          equalsButtonColor: colorScheme.primary,
+                          confirmButtonColor: colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        onChanged: (val) {
+                          setState(() => _inlineValue = val);
+                        },
+                        onSubmitted: (val) {
+                          setState(() => _submittedInlineValue = val);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Valor confirmado: R\$ ${val.toStringAsFixed(2).replaceAll('.', ',')}'),
+                              duration: const Duration(seconds: 2),
+                            ),
+                          );
                         },
                       ),
                     ],

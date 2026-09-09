@@ -131,12 +131,12 @@ flutter_utility_widgets/
   - [x] Adicionar demonstração no `example/lib/main.dart`.
   - [x] Validar com `flutter test` e `flutter analyze`.
 
-- [ ] **Etapa 3: Implementação do `UtilityCalculator`**
-  - [ ] Criar `lib/src/calculator/calculator_engine.dart` com testes de lógica pura.
-  - [ ] Criar `lib/src/calculator/calculator_view.dart`.
-  - [ ] Exportar em `lib/flutter_utility_widgets.dart`.
-  - [ ] Adicionar demonstração interativa no `example/lib/main.dart`.
-  - [ ] Validar com `flutter test` e `flutter analyze`.
+- [x] **Etapa 3: Implementação do `UtilityCalculator`**
+  - [x] Criar `lib/src/calculator/calculator_engine.dart` com testes de lógica pura.
+  - [x] Criar `lib/src/calculator/calculator_view.dart`.
+  - [x] Exportar em `lib/flutter_utility_widgets.dart`.
+  - [x] Adicionar demonstração interativa no `example/lib/main.dart`.
+  - [x] Validar com `flutter test` e `flutter analyze`.
 
 - [ ] **Etapa 4: Publicação no Git**
   - [ ] Criar repositório público no GitHub (ex: `https://github.com/seu-usuario/flutter_utility_widgets.git`).
