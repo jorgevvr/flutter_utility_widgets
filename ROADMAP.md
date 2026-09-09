@@ -111,25 +111,25 @@ flutter_utility_widgets/
 
 ## 5. Checklist de Implementação Passo a Passo
 
-- [ ] **Etapa 0: Configuração Inicial**
+- [x] **Etapa 0: Configuração Inicial**
   - [x] Package criado via `flutter create --template=package flutter_utility_widgets`.
   - [x] App `example/` criado via `flutter create example`.
-  - [ ] Vincular `flutter_utility_widgets` no `example/pubspec.yaml` via `path: ../`.
-  - [ ] Rodar `flutter pub get` no root e no `example/`.
+  - [x] Vincular `flutter_utility_widgets` no `example/pubspec.yaml` via `path: ../`.
+  - [x] Rodar `flutter pub get` no root e no `example/`.
 
-- [ ] **Etapa 1: Implementação do `UtilityNumberPicker`**
-  - [ ] Criar `lib/src/number_picker/number_picker.dart`.
-  - [ ] Exportar em `lib/flutter_utility_widgets.dart`.
-  - [ ] Criar testes unitários e de widget em `test/number_picker_test.dart`.
-  - [ ] Criar página de demonstração no `example/lib/main.dart` testando limites, passo e estilos.
-  - [ ] Rodar `flutter test` e `flutter analyze` para garantir zero avisos.
+- [x] **Etapa 1: Implementação do `UtilityNumberPicker`**
+  - [x] Criar `lib/src/number_picker/number_picker.dart`.
+  - [x] Exportar em `lib/flutter_utility_widgets.dart`.
+  - [x] Criar testes unitários e de widget em `test/number_picker_test.dart`.
+  - [x] Criar página de demonstração no `example/lib/main.dart` testando limites, passo e estilos.
+  - [x] Rodar `flutter test` e `flutter analyze` para garantir zero avisos.
 
-- [ ] **Etapa 2: Implementação do `UtilityMonthPicker`**
-  - [ ] Criar `lib/src/month_picker/month_picker_view.dart`.
-  - [ ] Exportar em `lib/flutter_utility_widgets.dart`.
-  - [ ] Testes em `test/month_picker_test.dart`.
-  - [ ] Adicionar demonstração no `example/lib/main.dart`.
-  - [ ] Validar com `flutter test` e `flutter analyze`.
+- [x] **Etapa 2: Implementação do `UtilityMonthPicker`**
+  - [x] Criar `lib/src/month_picker/month_picker_view.dart`.
+  - [x] Exportar em `lib/flutter_utility_widgets.dart`.
+  - [x] Testes em `test/month_picker_test.dart`.
+  - [x] Adicionar demonstração no `example/lib/main.dart`.
+  - [x] Validar com `flutter test` e `flutter analyze`.
 
 - [ ] **Etapa 3: Implementação do `UtilityCalculator`**
   - [ ] Criar `lib/src/calculator/calculator_engine.dart` com testes de lógica pura.
